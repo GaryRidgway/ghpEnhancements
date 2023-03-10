@@ -1,0 +1,19 @@
+{
+    "name": "Github Projects card link",
+    "version": "1.0.0",
+    "description": "Adds a card link to github project boards",
+    "manifest_version": 3,
+    "author": "Alan Way",
+    "content_scripts": [{
+        "matches": ["http://github.com/orgs/*/projects/*", "https://github.com/orgs/*/projects/*"],
+        "js": ["./cardLink.js"],
+        "css": ["./cardLink.css"]
+    }],
+    "icons": {
+        "16": "./assets/ghpcardlink_16.png",
+        "32": "./assets/ghpcardlink_32.png",
+        "48": "./assets/ghpcardlink_48.png",
+        "128": "./assets/ghpcardlink_128.png",
+        "256": "./assets/ghpcardlink_256.png"
+      }
+}

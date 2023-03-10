@@ -1,0 +1,40 @@
+.link-copy {
+	background-color: transparent;
+	color: rgb(139, 148, 158);
+	border: none;
+	opacity: 0;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border-radius: 6px;
+	position: relative;
+}
+    .link-copy:active {
+        background-color: #282828 !important;
+    }
+    .link-copy:active .link-activated {
+        opacity: 1;
+    }
+    .link-copy:hover {
+        background-color: #30363D;
+    }
+    .link-copy .link {
+    padding: 2px;
+        z-index: 1;
+        position: relative;
+    }
+
+.link-activated {
+	position: absolute;
+	padding: 5.3px;
+	left: 0;
+	color: #d5d5d5;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out;
+}
+
+[data-testid="board-view-column-card"]:hover .link-copy,
+[data-testid="board-view-column-card"]:focus .link-copy,
+[data-testid="board-view-column-card"]:focus-within .link-copy{
+	opacity: 1;
+}
