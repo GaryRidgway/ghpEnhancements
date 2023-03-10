@@ -9,7 +9,7 @@
 		cards.forEach(function(card) {
 			const board_id = card.getAttribute('data-board-card-id');
 			const trigger = card.querySelector('.js-context-menu-trigger');
-			const linkString = window.location.href + '#:~:data-dnd-drag-id=' + board_id;
+			const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
 	
 			const button = document.createElement('button');
 			button.innerHTML = link + linkActivated;
@@ -21,12 +21,21 @@
 			trigger.parentElement.appendChild(button);
 		});
 	}
+
+	function loadCardLink() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const card_link = urlParams.get('card_link');
+		const card = document.querySelector('[data-dnd-drag-id="' + card_link + '"]');
+		card.focus();
+	}
 	
 	function copyToClipboard(String) {
 		navigator.clipboard.writeText(String);
 	}
 	
 	window.onload = function() {
-			createLinks();
+		loadCardLink();
+		createLinks();
 	};
 })();
