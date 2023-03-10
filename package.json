@@ -1,0 +1,21 @@
+{
+  "name": "GitHub Projects Enhancements",
+  "version": "1.0.1",
+  "description": "Adds extra functionality to the new GitHub Projects boards.",
+  "main": "index.js",
+  "scripts": {
+    "zip": "zip -r build.zip . -x build.zip ./node_modules/\\* .git/\\* .DS_Store"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaryRidgway/ghpEnhancements.git"
+  },
+  "author": "Alan Way",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GaryRidgway/ghpEnhancements/issues"
+  },
+  "homepage": "https://github.com/GaryRidgway/ghpEnhancements#readme",
+  "devDependencies": {
+  }
+}
