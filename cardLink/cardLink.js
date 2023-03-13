@@ -26,8 +26,10 @@
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		const card_link = urlParams.get('card_link');
-		const card = document.querySelector('[data-dnd-drag-id="' + card_link + '"]');
-		card.focus();
+		if(card_link !== null) {
+			const card = document.querySelector('[data-dnd-drag-id="' + card_link + '"]');
+			card.focus();
+		}
 	}
 	
 	function copyToClipboard(String) {
