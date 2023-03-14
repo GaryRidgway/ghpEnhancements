@@ -16,17 +16,19 @@
 	function linkCard(card) {
 		const board_id = card.getAttribute('data-board-card-id');
 		const trigger = card.querySelector('.js-context-menu-trigger');
-		const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
-
-		const button = document.createElement('button');
-		button.innerHTML = link + linkActivated;
-		button.classList.add('link-copy');
-		button.onclick = function() {
-			copyToClipboard(linkString);
-		};
-
-		trigger.parentElement.appendChild(button);
-		card.classList.add('processed-card-link');
+		if (trigger) {
+			const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
+	
+			const button = document.createElement('button');
+			button.innerHTML = link + linkActivated;
+			button.classList.add('link-copy');
+			button.onclick = function() {
+				copyToClipboard(linkString);
+			};
+	
+			trigger.parentElement.appendChild(button);
+			card.classList.add('processed-card-link');
+		}
 	}
 
 	function loadCardLink() {
@@ -56,7 +58,7 @@
 		return (
 			rect.top >= 0 - rect.height &&
 			rect.left >= 0 - rect.width &&
-			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - buffer && /* or $(window).height() */
+			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + rect.height && /* or $(window).height() */
 			rect.right <= (window.innerWidth || document.documentElement.clientWidth) + rect.width /* or $(window).width() */
 		);
 	}
