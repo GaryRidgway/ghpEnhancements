@@ -23,7 +23,6 @@
 	
 			const button = document.createElement('button');
 			button.innerHTML = link + linkActivated;
-			// console.log(classlist);
 			button.classList.add('link-copy');
 			classlist.forEach(function(newClass) {
 				button.classList.add(newClass);
