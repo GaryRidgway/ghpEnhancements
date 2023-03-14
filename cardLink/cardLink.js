@@ -7,22 +7,26 @@
 	function createLinks() {
 		const cards = document.querySelectorAll('[data-testid="board-view-column-card"]');
 		cards.forEach(function(card) {
-			console.log(card);
 			if (isElementInViewport(card)) {
-				const board_id = card.getAttribute('data-board-card-id');
-				const trigger = card.querySelector('.js-context-menu-trigger');
-				const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
-		
-				const button = document.createElement('button');
-				button.innerHTML = link + linkActivated;
-				button.classList.add('link-copy');
-				button.onclick = function() {
-					copyToClipboard(linkString);
-				};
-		
-				trigger.parentElement.appendChild(button);
+				linkCard(card);
 			}
 		});
+	}
+
+	function linkCard(card) {
+		const board_id = card.getAttribute('data-board-card-id');
+		const trigger = card.querySelector('.js-context-menu-trigger');
+		const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
+
+		const button = document.createElement('button');
+		button.innerHTML = link + linkActivated;
+		button.classList.add('link-copy');
+		button.onclick = function() {
+			copyToClipboard(linkString);
+		};
+
+		trigger.parentElement.appendChild(button);
+		card.classList.add('processed-card-link');
 	}
 
 	function loadCardLink() {
@@ -46,13 +50,36 @@
 
 	function isElementInViewport (el) {
 	
-		var rect = el.getBoundingClientRect();
+		const rect = el.getBoundingClientRect();
+		const buffer = 40;
 	
 		return (
 			rect.top >= 0 - rect.height &&
 			rect.left >= 0 - rect.width &&
-			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + rect.height && /* or $(window).height() */
+			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - buffer && /* or $(window).height() */
 			rect.right <= (window.innerWidth || document.documentElement.clientWidth) + rect.width /* or $(window).width() */
 		);
+	}
+	
+	var handler = function() {
+		const cards = document.querySelectorAll('[data-testid="board-view-column-card"]:not(.processed-card-link)');
+		cards.forEach(function(element) {
+			if(isElementInViewport (element)) {
+				linkCard(element);
+			}
+		})
+	};
+	
+	// Non-jQuery
+	if (window.addEventListener) {
+		addEventListener('DOMContentLoaded', handler, false);
+		addEventListener('load', handler, false);
+		addEventListener('scroll', handler, true);
+		addEventListener('resize', handler, false);
+	} else if (window.attachEvent)  {
+		attachEvent('onDOMContentLoaded', handler); // Internet Explorer 9+ :(
+		attachEvent('onload', handler);
+		attachEvent('onscroll', handler);
+		attachEvent('onresize', handler);
 	}
 })();
