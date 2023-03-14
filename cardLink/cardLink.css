@@ -7,8 +7,29 @@ button.link-copy {
 	border-radius: 6px;
 	position: relative;
 }
-    .link-copy:active .link-activated {
+	.link-copy::before {
+        content: 'Link copied!';
+		position: absolute;
+		font-size: 0.8rem;
+		color: #fafafa;
+		background-color: #040404d7;
+		display: inline-block;
+		width: 5rem;
+		padding: 3px 5px;
+		left: calc(-2.5rem + 12px);
+		border-radius: 6px;
+		border: 1px solid #464b52d7;
+		pointer-events: none;
+		top: 200%;
+		opacity: 0;
+		transition: all 0.1s ease-in-out;
+	}
+	.link-copy:active .link-activated {
         opacity: 1;
+    }
+	.link-copy:active::before {
+		top: 110%;
+		opacity: 1;
     }
     .link-copy .link {
     padding: 2px;
