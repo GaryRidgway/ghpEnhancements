@@ -1,6 +1,6 @@
-.link-copy {
-	background-color: transparent;
-	color: rgb(139, 148, 158);
+button.link-copy {
+	/* background-color: transparent; */
+	/* color: rgb(139, 148, 158); */
 	border: none;
 	opacity: 0;
 	width: 24px;
@@ -9,14 +9,8 @@
 	border-radius: 6px;
 	position: relative;
 }
-    .link-copy:active {
-        background-color: #282828 !important;
-    }
     .link-copy:active .link-activated {
         opacity: 1;
-    }
-    .link-copy:hover {
-        background-color: #30363D;
     }
     .link-copy .link {
     padding: 2px;
