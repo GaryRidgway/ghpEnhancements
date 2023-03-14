@@ -20,15 +20,14 @@ button.link-copy {
 		border-radius: 6px;
 		border: 1px solid #464b52d7;
 		pointer-events: none;
-		top: 200%;
+		top: 110%;
 		opacity: 0;
-		transition: all 0.1s ease-in-out;
+		transition: opacity 0.1s ease-in-out 0.15s;
 	}
 	.link-copy:active .link-activated {
         opacity: 1;
     }
 	.link-copy:active::before {
-		top: 110%;
 		opacity: 1;
     }
     .link-copy .link {
