@@ -1,6 +1,6 @@
 {
     "name": "GitHub Projects Enhancements",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Adds extra functionality to the new GitHub Projects boards.",
     "manifest_version": 3,
     "author": "Alan Way",
