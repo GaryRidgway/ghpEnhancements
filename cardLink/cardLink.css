@@ -22,12 +22,12 @@ button.link-copy {
 		pointer-events: none;
 		top: 110%;
 		opacity: 0;
-		transition: opacity 0.1s ease-in-out 0.15s;
+		transition: opacity 0.2s ease-in-out 0.08s;
 	}
 	.link-copy:active .link-activated {
         opacity: 1;
     }
-	.link-copy:active::before {
+	[class*=ghpe-tooltip-]::before {
 		opacity: 1;
     }
     .link-copy .link {

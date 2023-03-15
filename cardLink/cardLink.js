@@ -15,23 +15,57 @@
 	}
 
 	function linkCard(card) {
-		const board_id = card.getAttribute('data-board-card-id');
 		const trigger = card.querySelector('.js-context-menu-trigger');
 		if (trigger) {
 			const classlist = trigger.querySelector('button').getAttribute('class').split(' ');
-			const linkString = window.location.origin + window.location.pathname + '?card_link=' + board_id;
-	
-			const button = document.createElement('button');
-			button.innerHTML = link + linkActivated;
-			button.classList.add('link-copy');
-			classlist.forEach(function(newClass) {
-				button.classList.add(newClass);
-			});
-			button.onclick = function() {
-				copyToClipboard(linkString);
-			};
-	
-			trigger.parentElement.appendChild(button);
+
+			let linkString = window.location.origin + window.location.pathname
+			const elementWithTextToLink = trigger.previousSibling;
+			if (elementWithTextToLink) {
+				const unencodedText = elementWithTextToLink.textContent;
+
+				if (unencodedText !== 'Draft') {
+					const encodedTextToLink = encodeURIComponent(unencodedText);
+					linkString += '#:~:text=' + encodedTextToLink;
+
+					const button = document.createElement('button');
+					button.innerHTML = link + linkActivated;
+					button.setAttribute('data-component', 'IconButton');
+					button.setAttribute('data-no-visuals', 'true');
+					button.classList.add('link-copy');
+					classlist.forEach(function(newClass) {
+						button.classList.add(newClass);
+					});
+					const delay = 1200;
+					button.onmousedown = function() {
+						copyToClipboard(linkString);
+						const timeStamp = Date.now();
+
+						button.classList.forEach(function(buttonClass){
+							if (buttonClass.startsWith('ghpe-tooltip-')){
+								button.classList.remove(buttonClass);
+							}
+						});
+						button.classList.add('ghpe-tooltip-' + timeStamp);
+
+						window.rtimeOut(()=>{
+							button.classList.forEach(function(buttonClass){
+								if (buttonClass.startsWith('ghpe-tooltip-')){
+									const addTime = Number(buttonClass.replace('ghpe-tooltip-', ''));
+
+									if (Date.now() >= (addTime + delay)) {
+										button.classList.remove(buttonClass);
+									}
+
+								}
+							});
+						}, delay);
+					};
+			
+					trigger.parentElement.appendChild(button);
+				}
+			}
+			
 			card.classList.add('processed-card-link');
 		}
 	}
@@ -53,19 +87,17 @@
 	window.onload = function() {
 		loadCardLink();
 		createLinks();
-		setTimeout(() => {
+		window.rtimeOut(() => {
 			createLinks();
 		}, 750);
-		setTimeout(() => {
+		window.rtimeOut(() => {
 			createLinks();
 		}, 1500);
-
 	};
 
 	function isElementInViewport (el) {
 	
 		const rect = el.getBoundingClientRect();
-		const buffer = 40;
 	
 		return (
 			rect.top >= 0 - rect.height &&
@@ -97,3 +129,17 @@
 		attachEvent('onresize', handler);
 	}
 })();
+
+window.rtimeOut=function(callback,delay){
+var dateNow=Date.now,
+	requestAnimation=window.requestAnimationFrame,
+	start=dateNow(),
+	stop,
+	timeoutFunc=function(){
+		dateNow()-start<delay?stop||requestAnimation(timeoutFunc):callback()
+	};
+requestAnimation(timeoutFunc);
+return{
+	clear:function(){stop=1}
+}
+}
