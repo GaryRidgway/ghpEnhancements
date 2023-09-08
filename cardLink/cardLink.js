@@ -96,6 +96,8 @@
 	};
 
 	function isElementInViewport (el) {
+
+		console.log('asdfasdf');
 	
 		const rect = el.getBoundingClientRect();
 	
@@ -130,16 +132,16 @@
 	}
 })();
 
-window.rtimeOut=function(callback,delay){
-var dateNow=Date.now,
-	requestAnimation=window.requestAnimationFrame,
-	start=dateNow(),
-	stop,
-	timeoutFunc=function(){
-		dateNow()-start<delay?stop||requestAnimation(timeoutFunc):callback()
-	};
-requestAnimation(timeoutFunc);
-return{
-	clear:function(){stop=1}
-}
+window.rtimeOut = function(callback,delay){
+	var dateNow = Date.now,
+		requestAnimation = window.requestAnimationFrame,
+		start = dateNow(),
+		stop,
+		timeoutFunc = function(){
+			dateNow()-start<delay?stop||requestAnimation(timeoutFunc):callback()
+		};
+	requestAnimation(timeoutFunc);
+	return{
+		clear:function(){stop=1}
+	}
 }

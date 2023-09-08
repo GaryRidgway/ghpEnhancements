@@ -5,9 +5,12 @@
     "manifest_version": 3,
     "author": "Alan Way",
     "content_scripts": [{
-        "matches": ["http://github.com/orgs/*/projects/*", "https://github.com/orgs/*/projects/*"],
-        "js": ["./cardLink/cardLink.js"],
-        "css": ["./cardLink/cardLink.css"]
+        "matches": [
+            "http://github.com/**/pull/*",
+            "https://github.com/**/pull/*"
+        ],
+        "js": ["./pr_preview/preview.js"],
+        "css": ["./pr_preview/preview.css"]
     }],
     "icons": {
         "16": "./assets/ghpe_16.png",
