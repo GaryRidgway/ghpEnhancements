@@ -2,6 +2,10 @@ let links = document.querySelectorAll('.TimelineItem.TimelineItem--condensed .te
 links.forEach(function(link, index){
     link.addEventListener("click", function(event){
         openIframe(event);
+        const buttons = document.querySelectorAll('.pr-preview-container button');
+        buttons.forEach(function(button) {
+            button.addEventListener("click", function(event){closeIframe()});
+        });
     });
 });
 
@@ -13,7 +17,27 @@ function openIframe(event) {
     container.classList.add('pr-preview-parent');
     container.innerHTML =
         '<div class="pr-preview-container">\
-        <iframe src="' + link + '" title="description"></iframe>\
+            <div class="display-container clearfix ppc-3 ppc-md-4 ppc-lg-5">\
+                <div class="button-container">\
+                <button>X</button>\
+                </div>\
+                <iframe\
+                    src="' + link + '"\
+                    title="description"\
+                ></iframe>\
+            </div>\
         </div>'
         + container.innerHTML;
+}
+
+function closeIframe() {
+    const iframes = document.querySelectorAll('.pr-preview-container');
+    iframes.forEach(function(frame) {
+        frame.remove();
+    });
+
+    const parents = document.querySelectorAll('.pr-preview-parent');
+    parents.forEach(function(parent) {
+        parent.classList.remove('pr-preview-parent');
+    });
 }
